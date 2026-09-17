@@ -7,7 +7,6 @@ import {
   RefreshCw,
   AlertCircle,
   Smartphone,
-  SdCard,
   ArrowLeft,
   Loader2,
   Shield,
@@ -22,9 +21,6 @@ import {
   rootLabel,
   formatBytes,
 } from '../lib/deviceStorage';
-
-// lucide may not export SdCard on all versions — fallback icon
-const SdIcon = (SdCard as unknown as React.FC<{ className?: string }>) || HardDrive;
 
 const ROOTS: StorageRoot[] = ['external', 'internal', 'data', 'cache'];
 
@@ -65,7 +61,8 @@ export const DeviceStorageBrowser: React.FC = () => {
 
   useEffect(() => {
     if (native && permOk !== null) load();
-  }, [root, path]); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [root, path]);
 
   const openDir = (entry: DeviceFileEntry) => {
     if (entry.type !== 'directory') return;
@@ -149,7 +146,7 @@ npx cap open android`}
                 : 'border-neutral-700 text-neutral-400 hover:border-neutral-500'
             }`}
           >
-            {r === 'external' ? <SdIcon className="w-3.5 h-3.5" /> : <Folder className="w-3.5 h-3.5" />}
+            <Folder className="w-3.5 h-3.5" />
             {rootLabel(r)}
           </button>
         ))}
